@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t gregory-nisbet/proof-general .
+docker build -t gregorynisbet/proof-general-emacs .
