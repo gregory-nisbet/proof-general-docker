@@ -5,7 +5,7 @@ A Dockerfile with emacs and proof-general set up and ready to go.
 This image is named `gregory-nisbet/proof-general` so as not to
 conflict with anything
 
-1. `sudo bash build.sh` builds the iamge
+1. `sudo bash build.sh` builds the image
 2. `sudo bash run.sh` runs the image in a container
 
 ## TODO
