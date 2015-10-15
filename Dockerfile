@@ -5,13 +5,14 @@ RUN dnf install -y emacs
 RUN dnf install -y make which
 # copy proof general tar-gz
 RUN mkdir -p /opt/ProofGeneral
+RUN mkdir -p /opt/scripts
 ADD ./ProofGeneral-4.2.tgz /opt/ProofGeneral
-# clean up .elc files
-# on the off-chance they are incompatible with the
-# current emacs version
-# for whatever reason, make compile produces a bunch of nasty errors
-# so we will not bother to byte compile until I can fix it.
-RUN (cd /opt/ProofGeneral/ProofGeneral-4.2 && make clean)
+COPY compile-elc.pl /opt/scripts/compile-elc.pl
+# by sheer luck, File::Find 's find function
+# traverses the .el files in the correct order
+# `make compile` does not
+RUN (cd /opt/ProofGeneral/ProofGeneral-4.2 && make clean && \
+    perl /opt/scripts/compile-elc.pl)
 # add init.el to .emacs
 COPY ./init.el /tmp/init.el
 RUN mkdir ~/.emacs.d
